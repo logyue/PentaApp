@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "314725638822",
+    "firebase_url": "https://pentaapp-bbe8a.firebaseio.com",
+    "project_id": "pentaapp-bbe8a",
+    "storage_bucket": "pentaapp-bbe8a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314725638822:android:4424a1061c29bec1",
+        "android_client_info": {
+          "package_name": "pentaapp.com.pentaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314725638822-v5trn42s6pj2uetq591bg1l1smaf9035.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDb3lqPl0ORTeHHdNYxurrzI4ZvHfZ_fFg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
