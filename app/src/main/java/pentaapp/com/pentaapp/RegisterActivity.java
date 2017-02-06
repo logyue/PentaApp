@@ -32,7 +32,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_main);
 
         firebaseAuth=FirebaseAuth.getInstance();
+        if (firebaseAuth.getCurrentUser()!=null){
+            //main activity here
+            finish();
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
+        }
         progressDialog = new ProgressDialog(this);
         buttonRegister = (Button)findViewById(R.id.buttonRegister);
         editTextEmail = (EditText)findViewById(R.id.editTextEmail);
@@ -63,10 +68,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(RegisterActivity.this,"Registered Succefully",Toast.LENGTH_SHORT).show();
+                    //main activity here
+                    finish();
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 }else{
                     Toast.makeText(RegisterActivity.this,"Could not reigster. Please try again.",Toast.LENGTH_SHORT).show();
                 }
+                progressDialog.dismiss();
             }
         });
     }
