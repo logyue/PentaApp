@@ -20,12 +20,22 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity{
 
-
+    private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startActivity(new Intent(this,LoginActivity.class));
+
+
+        if (firebaseAuth.getCurrentUser()!=null){
+            //main activity here
+            finish();
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+
+        }else{
+            startActivity(new Intent(this,LoginActivity.class));
+
+        }
 
     }
 

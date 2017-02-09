@@ -15,6 +15,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         >
         <EditText
             android:layout_margin="15dp"
@@ -32,14 +33,14 @@
             android:layout_height="wrap_content" />
         <Button
             android:layout_margin="15dp"
-            android:id="@+id/buttonRegister"
-            android:text="Register User"
+            android:id="@+id/buttonSignIn"
+            android:text="Login"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
         <TextView
             android:textAlignment="center"
-            android:text="Already Registered? Sign in here"
-            android:id="@+id/textViewSignin"
+            android:text="Do not have account? Sign here"
+            android:id="@+id/textViewRegister"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
 

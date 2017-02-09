@@ -32,19 +32,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         firebaseAuth=FirebaseAuth.getInstance();
-        if (firebaseAuth.getCurrentUser()!=null){
-            //main activity here
-            finish();
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-
-        }
+//        if (firebaseAuth.getCurrentUser()!=null){
+//            //main activity here
+//            finish();
+//            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+//
+//        }
         progressDialog = new ProgressDialog(this);
 
 
         editTextEmail = (EditText)findViewById(R.id.editTextEmail);
         editTextPassword = (EditText)findViewById(R.id.editTextPassword);
-        textViewRegister = (TextView)findViewById(R.id.textViewSignin);
-        buttonSignIn = (Button)findViewById(R.id.buttonRegister);
+        textViewRegister = (TextView)findViewById(R.id.textViewRegister);
+        buttonSignIn = (Button)findViewById(R.id.buttonSignIn);
         buttonSignIn.setOnClickListener(this);
         textViewRegister.setOnClickListener(this);
     }
@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this,"Please enter password",Toast.LENGTH_SHORT).show();
             return;
         }
-        progressDialog.setMessage("Registering User...");
+        progressDialog.setMessage("Log In...");
         progressDialog.show();
 
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -73,7 +73,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     //main dashboard
                     finish();
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                }else{
+                    Toast.makeText(LoginActivity.this,"Something wrong...",Toast.LENGTH_SHORT).show();
                 }
+                //progressDialog.dismiss();
             }
         });
     }
@@ -83,8 +86,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             userLogin();
         }
         if(v == textViewRegister){
-            finish();
-            startActivity(new Intent(this,MainActivity.class));
+            //finish();
+            startActivity(new Intent(this,RegisterActivity.class));
         }
     }
 }
