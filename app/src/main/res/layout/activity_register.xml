@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        >
+        android:id="@+id/linearLayout">
         <EditText
             android:layout_margin="15dp"
             android:inputType="textEmailAddress"
@@ -47,4 +47,15 @@
 
 
     </LinearLayout>
+
+    <TextView
+        android:text="Registration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="47dp"
+        android:id="@+id/textView"
+        android:textSize="30sp"
+        android:textColor="@android:color/background_dark" />
 </RelativeLayout>

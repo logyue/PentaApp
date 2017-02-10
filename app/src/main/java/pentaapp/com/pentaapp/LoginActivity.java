@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,18 +27,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         firebaseAuth=FirebaseAuth.getInstance();
-//        if (firebaseAuth.getCurrentUser()!=null){
-//            //main activity here
-//            finish();
-//            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-//
-//        }
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser()!=null){
+                    //main activity here
+                    finish();
+                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                }
+            }
+        };
         progressDialog = new ProgressDialog(this);
 
 
@@ -79,6 +85,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //progressDialog.dismiss();
             }
         });
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
     }
     @Override
     public void onClick(View v) {
