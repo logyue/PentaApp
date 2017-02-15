@@ -20,6 +20,13 @@
         android:id="@+id/linearLayout">
         <EditText
             android:layout_margin="15dp"
+            android:inputType="textPersonName"
+            android:hint="Enter your Name"
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_margin="15dp"
             android:inputType="textEmailAddress"
             android:hint="Enter your email"
             android:id="@+id/editTextEmail"
@@ -32,6 +39,27 @@
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <RadioGroup
+            android:id="@+id/radioGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/radioMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/radioFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female" />
+
+        </RadioGroup>
+
         <Button
             android:layout_margin="15dp"
             android:id="@+id/buttonRegister"
@@ -55,7 +83,7 @@
         android:layout_above="@+id/linearLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="47dp"
-        android:id="@+id/textView"
+        android:id="@+id/textViewRegisterPage"
         android:textSize="30sp"
         android:textColor="@android:color/background_dark" />
 </RelativeLayout>

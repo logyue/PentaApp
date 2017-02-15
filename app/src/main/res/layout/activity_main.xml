@@ -19,16 +19,29 @@
         >
     <TextView
         android:layout_margin="15dp"
-        android:hint="Hello World"
-        android:id="@+id/editTextEmail"
+        android:id="@+id/textViewtEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black" />
+        <TextView
+            android:layout_margin="15dp"
+            android:id="@+id/textViewtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black" />
+        <TextView
+            android:layout_margin="15dp"
+            android:id="@+id/textViewtGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black" />
         <Button
             android:layout_margin="15dp"
             android:id="@+id/buttonSignOut"
             android:text="Log out"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
+
     </LinearLayout>
 </RelativeLayout>
 

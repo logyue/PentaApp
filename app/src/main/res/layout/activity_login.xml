@@ -32,6 +32,12 @@
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <TextView
+            android:textAlignment="center"
+            android:text="Forgot Password? Click Here"
+            android:id="@+id/textViewForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
         <Button
             android:layout_margin="15dp"
             android:id="@+id/buttonSignIn"
@@ -52,7 +58,7 @@
         android:text="Sign In"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="33dp"
+        android:layout_marginBottom="102dp"
         android:id="@+id/textView2"
         android:textSize="30sp"
         android:textColor="@android:color/background_dark"
