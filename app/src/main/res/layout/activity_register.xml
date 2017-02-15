@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="pentaapp.com.pentaapp.RegisterActivity">
+    tools:context="pentaapp.com.pentaapp.Registration.RegisterActivity">
     tools:context="pentaapp.com.pentaapp.MainActivity">
     <LinearLayout
         android:layout_centerHorizontal="true"
@@ -21,22 +21,29 @@
         <EditText
             android:layout_margin="15dp"
             android:inputType="textPersonName"
-            android:hint="Enter your Name"
+            android:hint="Enter Name"
             android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <EditText
             android:layout_margin="15dp"
             android:inputType="textEmailAddress"
-            android:hint="Enter your email"
+            android:hint="Enter email"
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <EditText
             android:layout_margin="15dp"
             android:inputType="textPassword"
-            android:hint="Enter your password"
+            android:hint="Enter password"
             android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:layout_margin="15dp"
+            android:inputType="textPassword"
+            android:hint="Enter password again"
+            android:id="@+id/editTextPasswordCompare"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

@@ -1,8 +1,7 @@
-package pentaapp.com.pentaapp;
+package pentaapp.com.pentaapp.Registration;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,19 +14,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.w3c.dom.Text;
+import pentaapp.com.pentaapp.R;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextName;
     private EditText editTextEmail;
     private EditText editTextPassword;
+    private EditText editTextPasswordCompare;
     private TextView textViewSignup;
     private RadioGroup radioGroupGender;
     private RadioButton radioButtonGender;
@@ -56,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         editTextName = (EditText) findViewById(R.id.editTextName);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        editTextPasswordCompare = (EditText) findViewById(R.id.editTextPasswordCompare);
 
         radioGroupGender=(RadioGroup)findViewById(R.id.radioGender);
         int selectId=radioGroupGender.getCheckedRadioButtonId();
@@ -73,19 +69,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String name=editTextName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        String passwordCompare = editTextPasswordCompare.getText().toString().trim();
         if (TextUtils.isEmpty(name)) {
             //email is empty
-            Toast.makeText(this, "Please enter name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter name...", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(email)) {
             //email is empty
-            Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter email...", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(password)) {
             //password is empty
-            Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter password...", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!password.equals(passwordCompare)){
+            Toast.makeText(this, "Password not match...", Toast.LENGTH_SHORT).show();
             return;
         }
 
