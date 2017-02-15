@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="pentaapp.com.pentaapp.LoginActivity">
+    tools:context="pentaapp.com.pentaapp.Registration.LoginActivity">
+
     <LinearLayout
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
@@ -32,30 +33,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <Button
-            android:id="@+id/buttonSignin"
-            android:text="Sign in"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            />
+            android:layout_margin="15dp"
+            android:id="@+id/buttonSignIn"
+            android:text="Login"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
         <TextView
             android:textAlignment="center"
-            android:text="Not have account? Signup here"
-            android:id="@+id/textViewSignUp"
+            android:text="Forgot Password? Click Here"
+            android:id="@+id/textViewForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textAlignment="center"
+            android:text="Do not have account? Sign here"
+            android:id="@+id/textViewRegister"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
 
 
     </LinearLayout>
 
-    <EditText
+    <TextView
+        android:text="Sign In"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:ems="10"
-        android:layout_above="@+id/linearLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"
-        android:id="@+id/editText" />
+        android:layout_marginBottom="102dp"
+        android:id="@+id/textView2"
+        android:textSize="30sp"
+        android:textColor="@android:color/background_dark"
+
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
