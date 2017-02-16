@@ -52,6 +52,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                     textViewtName.setText(name);
                     String gender=(String)dataSnapshot.child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("Gender").getValue();
                     textViewtGender.setText(gender);
+
+                    textViewtEmail.setTextColor(getResources().getColor(R.color.textColor));
+                    textViewtName.setTextColor(getResources().getColor(R.color.textColor));
+                    textViewtGender.setTextColor(getResources().getColor(R.color.textColor));
                 }
 
                 @Override

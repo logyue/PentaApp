@@ -25,5 +25,6 @@
     <color name="tab_background_selected">#133650</color>
     <color name="tab_background_unselected">#1C7688</color>
 
+    <color name="textColor">#FFFFFF</color>
 
 </resources>
