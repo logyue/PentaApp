@@ -2,6 +2,7 @@ package pentaapp.com.pentaapp.Registration;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -31,12 +36,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextPassword;
     private EditText editTextPasswordCompare;
     private TextView textViewSignup;
-    private RadioGroup radioGroupGender;
-    private RadioButton radioButtonGender;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
 
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +59,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextPasswordCompare = (EditText) findViewById(R.id.editTextPasswordCompare);
 
-        radioGroupGender=(RadioGroup)findViewById(R.id.radioGender);
-        int selectId=radioGroupGender.getCheckedRadioButtonId();
-        radioButtonGender=(RadioButton)findViewById(selectId);
+        radioGroup=(RadioGroup)findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                radioButton=(RadioButton)findViewById(checkedId);
+            }
+        });
 
 
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
@@ -66,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void registerUser() {//register method
-        String name=editTextName.getText().toString().trim();
+        String name = editTextName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String passwordCompare = editTextPasswordCompare.getText().toString().trim();
@@ -85,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(this, "Please enter password...", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(!password.equals(passwordCompare)){
+        if (!password.equals(passwordCompare)) {
             Toast.makeText(this, "Password not match...", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -98,12 +108,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     //main activity here
-                    String name=editTextName.getText().toString().trim();
-                    String gender=radioButtonGender.getText().toString().trim();
+                    String name = editTextName.getText().toString().trim();
+                    String gender = radioButton.getText().toString().trim();
 
-                    String user_id=firebaseAuth.getCurrentUser().getUid();
+                    String user_id = firebaseAuth.getCurrentUser().getUid();
 
-                    DatabaseReference current_user_db=firebaseDatabase.getReference().child("Users").child(user_id);
+                    DatabaseReference current_user_db = firebaseDatabase.getReference().child("Users").child(user_id);
                     current_user_db.child("Name").setValue(name);
                     current_user_db.child("Gender").setValue(gender);
                     //current_user_db.child("gender").setValue();
@@ -127,6 +137,4 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             startActivity(new Intent(this, LoginActivity.class));
         }
     }
-
-
 }
