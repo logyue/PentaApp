@@ -31,8 +31,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextPassword;
     private EditText editTextPasswordCompare;
     private TextView textViewSignup;
-    private RadioGroup radioGroupGender;
-    private RadioButton radioButtonGender;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
 
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
@@ -53,9 +53,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextPasswordCompare = (EditText) findViewById(R.id.editTextPasswordCompare);
 
-        radioGroupGender=(RadioGroup)findViewById(R.id.radioGender);
-        int selectId=radioGroupGender.getCheckedRadioButtonId();
-        radioButtonGender=(RadioButton)findViewById(selectId);
+        radioGroup=(RadioGroup)findViewById(R.id.radioGender);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                radioButton=(RadioButton)findViewById(checkedId);
+
+            }
+        });
 
 
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
@@ -99,16 +104,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if (task.isSuccessful()) {
                     //main activity here
                     String name=editTextName.getText().toString().trim();
-                    String gender=radioButtonGender.getText().toString().trim();
+                    String gender=radioButton.getText().toString().trim();
 
                     String user_id=firebaseAuth.getCurrentUser().getUid();
 
                     DatabaseReference current_user_db=firebaseDatabase.getReference().child("Users").child(user_id);
                     current_user_db.child("Name").setValue(name);
                     current_user_db.child("Gender").setValue(gender);
-                    //current_user_db.child("gender").setValue();
-                    //finish();
-                    //startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 } else {
                     Toast.makeText(RegisterActivity.this, "Could not reigster. Please try again.", Toast.LENGTH_SHORT).show();
                 }
