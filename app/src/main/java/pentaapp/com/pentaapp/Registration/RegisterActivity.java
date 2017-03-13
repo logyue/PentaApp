@@ -59,11 +59,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextPasswordCompare = (EditText) findViewById(R.id.editTextPasswordCompare);
 
+<<<<<<< HEAD
         radioGroup=(RadioGroup)findViewById(R.id.radioGroup);
+=======
+        radioGroup=(RadioGroup)findViewById(R.id.radioGender);
+>>>>>>> master
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 radioButton=(RadioButton)findViewById(checkedId);
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
             }
         });
 
@@ -108,17 +116,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     //main activity here
+<<<<<<< HEAD
                     String name = editTextName.getText().toString().trim();
                     String gender = radioButton.getText().toString().trim();
+=======
+                    String name=editTextName.getText().toString().trim();
+                    String gender=radioButton.getText().toString().trim();
+>>>>>>> master
 
                     String user_id = firebaseAuth.getCurrentUser().getUid();
 
                     DatabaseReference current_user_db = firebaseDatabase.getReference().child("Users").child(user_id);
                     current_user_db.child("Name").setValue(name);
                     current_user_db.child("Gender").setValue(gender);
-                    //current_user_db.child("gender").setValue();
-                    //finish();
-                    //startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 } else {
                     Toast.makeText(RegisterActivity.this, "Could not reigster. Please try again.", Toast.LENGTH_SHORT).show();
                 }

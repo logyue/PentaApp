@@ -11,11 +11,19 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
--->
-<resources>
-    <string name="app_name">Penta</string>
-    <string name="home_page">Penta</string>
-    <string name="friends_page">Friends</string>
-    <string name="games_page">Games</string>
-    <string name="profile_page">Profile</string>
-</resources>
+--><!-- Layout for the Monday fragment -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/penta_logo" />
+
+
+</LinearLayout>
