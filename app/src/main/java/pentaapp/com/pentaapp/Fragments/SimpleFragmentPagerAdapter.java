@@ -69,7 +69,7 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
 
     /**
      * Return the name of each tab.
-     */
+     *
     @Override
     public CharSequence getPageTitle(int position) {
         if (position == 0) {
@@ -82,4 +82,5 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
             return mContext.getString(R.string.profile_page);
         }
     }
+     */
 }
