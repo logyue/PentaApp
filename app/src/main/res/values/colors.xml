@@ -27,4 +27,7 @@
 
     <color name="textColor">#FFFFFF</color>
 
+    <color name="profile_picture_placeholder_color">#4A7BA7</color>
+
+
 </resources>
