@@ -20,16 +20,51 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import java.util.ArrayList;
+
+import pentaapp.com.pentaapp.Friends.Friend;
+import pentaapp.com.pentaapp.Friends.FriendsAdapter;
 import pentaapp.com.pentaapp.R;
 
-/**
- * Fragment that displays "Wednesday".
- */
 public class FriendsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.friends_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.friends_fragment, container, false);
+
+        //Create an array of words
+        final ArrayList<Friend> friends = new ArrayList<Friend>();
+
+        //Add words
+        friends.add(new Friend("Jili Chen"));
+        friends.add(new Friend("Jeffrey Ma"));
+        friends.add(new Friend("Kevin Chie"));
+        friends.add(new Friend("Jili Chen"));
+        friends.add(new Friend("Jeffrey Ma"));
+        friends.add(new Friend("Kevin Chie"));
+        friends.add(new Friend("Jili Chen"));
+        friends.add(new Friend("Jeffrey Ma"));
+        friends.add(new Friend("Kevin Chie"));
+        friends.add(new Friend("Jili Chen"));
+        friends.add(new Friend("Jeffrey Ma"));
+        friends.add(new Friend("Kevin Chie"));
+        friends.add(new Friend("Jili Chen"));
+        friends.add(new Friend("Jeffrey Ma"));
+        friends.add(new Friend("Kevin Chie"));
+        friends.add(new Friend("Jili Chen"));
+        friends.add(new Friend("Jeffrey Ma"));
+        friends.add(new Friend("Kevin Chie"));
+
+
+
+        FriendsAdapter adapter = new FriendsAdapter(getActivity(), friends);
+
+        ListView listView = (ListView) rootView.findViewById(R.id.friends_list);
+
+        listView.setAdapter(adapter);
+
+        return rootView;
     }
 }

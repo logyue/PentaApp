@@ -26,20 +26,23 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pentaapp.com.pentaapp.R;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterActivity extends AppCompatActivity {
 
-    private Button buttonRegister;
-    private EditText editTextName;
-    private EditText editTextEmail;
-    private EditText editTextPassword;
-    private EditText editTextPasswordCompare;
-    private TextView textViewSignup;
-    private RadioGroup radioGroup;
+
+    @Bind(R.id.textPersonName) EditText textPersonName;
+    @Bind(R.id.textEmailAddress) EditText editTextEmail;
+    @Bind(R.id.editTextPassword) EditText editTextPassword;
+    @Bind(R.id.editTextPasswordCompare) EditText editTextPasswordCompare;
+    @Bind(R.id.buttonRegister) Button buttonRegister;
+    @Bind(R.id.textViewSignin) TextView textViewSignup;
+    @Bind(R.id.radioGender) RadioGroup radioGroup;
     private RadioButton radioButton;
 
-    private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
 
@@ -48,9 +51,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        ButterKnife.bind(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
+<<<<<<< HEAD
 
         progressDialog = new ProgressDialog(this);
 
@@ -64,26 +69,39 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 =======
         radioGroup=(RadioGroup)findViewById(R.id.radioGender);
 >>>>>>> master
+=======
+>>>>>>> master
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 radioButton=(RadioButton)findViewById(checkedId);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> master
+=======
+>>>>>>> master
             }
         });
-
-
-        buttonRegister = (Button) findViewById(R.id.buttonRegister);
-        textViewSignup = (TextView) findViewById(R.id.textViewSignin);
-        buttonRegister.setOnClickListener(this);
-        textViewSignup.setOnClickListener(this);
+        buttonRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerUser();
+            }
+        });
+        textViewSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
+            }
+        });
 
     }
 
     private void registerUser() {//register method
+<<<<<<< HEAD
         String name = editTextName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -109,13 +127,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
 
         progressDialog.setMessage("Registering User...");
+=======
+        if (!validate()) {
+            Toast.makeText(getBaseContext(), "Sign up failed", Toast.LENGTH_LONG).show();
+            return;
+        }
+        buttonRegister.setEnabled(false);
+        final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setMessage("Creating Account...");
+>>>>>>> master
         progressDialog.show();
-
+        String email = editTextEmail.getText().toString();
+        String password = editTextPassword.getText().toString();
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     //main activity here
+<<<<<<< HEAD
 <<<<<<< HEAD
                     String name = editTextName.getText().toString().trim();
                     String gender = radioButton.getText().toString().trim();
@@ -125,6 +155,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 >>>>>>> master
 
                     String user_id = firebaseAuth.getCurrentUser().getUid();
+=======
+                    String name=textPersonName.getText().toString();
+                    String gender=radioButton.getText().toString();
+                    String user_id=firebaseAuth.getCurrentUser().getUid();
+>>>>>>> master
 
                     DatabaseReference current_user_db = firebaseDatabase.getReference().child("Users").child(user_id);
                     current_user_db.child("Name").setValue(name);
@@ -132,19 +167,60 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 } else {
                     Toast.makeText(RegisterActivity.this, "Could not reigster. Please try again.", Toast.LENGTH_SHORT).show();
                 }
-                progressDialog.dismiss();
             }
         });
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        // On complete call either onSignupSuccess or onSignupFailed
+                        // depending on success
+                        onSignupSuccess();
+                        // onSignupFailed();
+                        progressDialog.dismiss();
+                    }
+                }, 3000);
     }
-
-    @Override
-    public void onClick(View v) {
-        if (v == buttonRegister) {
-            registerUser();
-        }
-        if (v == textViewSignup) {
-            //will goto login activity here
-            startActivity(new Intent(this, LoginActivity.class));
-        }
+    public void onSignupSuccess() {
+        buttonRegister.setEnabled(true);
+        setResult(RESULT_OK, null);
+        finish();
     }
+    public boolean validate() {
+        boolean valid = true;
+        String name = textPersonName.getText().toString();
+        String email = editTextEmail.getText().toString();
+        String password = editTextPassword.getText().toString();
+        String passwordCompare = editTextPasswordCompare.getText().toString();
+        if (name.isEmpty() || name.length() < 3) {
+            //email is empty
+            textPersonName.setError("at least 3 characters");
+            valid = false;
+        }
+        else {
+            textPersonName.setError(null);
+        }
+        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.setError("enter a valid email address");
+            valid = false;
+        } else {
+            editTextEmail.setError(null);
+        }
+        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
+            editTextPassword.setError("between 4 and 10 alphanumeric characters");
+            valid = false;
+        } else {
+            editTextPassword.setError(null);
+        }
+        if(passwordCompare.isEmpty() || passwordCompare.length() < 4 || passwordCompare.length() > 10 || !(passwordCompare.equals(password))) {
+            editTextPasswordCompare.setError("Password Do not match");
+            valid = false;
+        } else {
+            editTextPasswordCompare.setError(null);
+        }
+        return valid;
+    }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master
