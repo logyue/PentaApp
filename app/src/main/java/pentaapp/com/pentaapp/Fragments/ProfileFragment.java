@@ -46,7 +46,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
             textViewtEmail=(TextView) rootView.findViewById(R.id.textViewtEmail);
             textViewtName=(TextView) rootView.findViewById(R.id.textViewName);
             textViewtGender=(TextView) rootView.findViewById(R.id.textViewtGender);
-            textViewtEmail.setText(user.getEmail());
+
 
 
 
@@ -59,6 +59,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                     textViewtName.setText(name);
                     String gender=(String)dataSnapshot.child("Users").child(uid).child("Gender").getValue();
                     textViewtGender.setText(gender);
+                    textViewtEmail.setText(firebaseAuth.getCurrentUser().getEmail());
                 }
 
                 @Override
