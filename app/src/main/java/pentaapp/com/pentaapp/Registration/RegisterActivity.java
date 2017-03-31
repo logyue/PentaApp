@@ -40,11 +40,12 @@ public class RegisterActivity extends AppCompatActivity {
     @Bind(R.id.editTextPasswordCompare) EditText editTextPasswordCompare;
     @Bind(R.id.buttonRegister) Button buttonRegister;
     @Bind(R.id.textViewSignin) TextView textViewSignup;
-    @Bind(R.id.radioGender) RadioGroup radioGroup;
+    @Bind(R.id.radioGroup) RadioGroup radioGroup;
     private RadioButton radioButton;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -55,33 +56,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-<<<<<<< HEAD
-
         progressDialog = new ProgressDialog(this);
 
-        editTextName = (EditText) findViewById(R.id.editTextName);
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        editTextPasswordCompare = (EditText) findViewById(R.id.editTextPasswordCompare);
-
-<<<<<<< HEAD
-        radioGroup=(RadioGroup)findViewById(R.id.radioGroup);
-=======
-        radioGroup=(RadioGroup)findViewById(R.id.radioGender);
->>>>>>> master
-=======
->>>>>>> master
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 radioButton=(RadioButton)findViewById(checkedId);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
->>>>>>> master
-=======
->>>>>>> master
             }
         });
         buttonRegister.setOnClickListener(new View.OnClickListener() {
@@ -101,11 +82,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser() {//register method
-<<<<<<< HEAD
-        String name = editTextName.getText().toString().trim();
+        String name = textPersonName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String passwordCompare = editTextPasswordCompare.getText().toString().trim();
+
         if (TextUtils.isEmpty(name)) {
             //email is empty
             Toast.makeText(this, "Please enter name...", Toast.LENGTH_SHORT).show();
@@ -126,41 +107,23 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        progressDialog.setMessage("Registering User...");
-=======
+
         if (!validate()) {
             Toast.makeText(getBaseContext(), "Sign up failed", Toast.LENGTH_LONG).show();
             return;
         }
         buttonRegister.setEnabled(false);
-        final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this,
-                R.style.AppTheme_Dark_Dialog);
         progressDialog.setMessage("Creating Account...");
->>>>>>> master
         progressDialog.show();
-        String email = editTextEmail.getText().toString();
-        String password = editTextPassword.getText().toString();
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     //main activity here
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    String name = editTextName.getText().toString().trim();
-                    String gender = radioButton.getText().toString().trim();
-=======
-                    String name=editTextName.getText().toString().trim();
-                    String gender=radioButton.getText().toString().trim();
->>>>>>> master
 
-                    String user_id = firebaseAuth.getCurrentUser().getUid();
-=======
                     String name=textPersonName.getText().toString();
                     String gender=radioButton.getText().toString();
                     String user_id=firebaseAuth.getCurrentUser().getUid();
->>>>>>> master
-
                     DatabaseReference current_user_db = firebaseDatabase.getReference().child("Users").child(user_id);
                     current_user_db.child("Name").setValue(name);
                     current_user_db.child("Gender").setValue(gender);
@@ -219,8 +182,4 @@ public class RegisterActivity extends AppCompatActivity {
         }
         return valid;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master

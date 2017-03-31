@@ -72,17 +72,10 @@
                 android:text="Male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-<<<<<<< HEAD
-                android:text="Male"
-                android:checked="true"/>
-
-            <RadioButton
-=======
                 android:layout_weight="1"
                 >
             </android.support.v7.widget.AppCompatRadioButton>
             <android.support.v7.widget.AppCompatRadioButton
->>>>>>> master
                 android:id="@+id/radioFemale"
                 android:text="Female"
                 android:layout_width="wrap_content"
@@ -101,7 +94,6 @@
             android:layout_marginBottom="24dp"
             android:padding="12dp"
             android:text="Create Account"/>
-
         <TextView android:id="@+id/textViewSignin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
