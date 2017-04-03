@@ -2,6 +2,7 @@ package pentaapp.com.pentaapp.Registration;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -35,11 +40,13 @@ public class RegisterActivity extends AppCompatActivity {
     @Bind(R.id.editTextPasswordCompare) EditText editTextPasswordCompare;
     @Bind(R.id.buttonRegister) Button buttonRegister;
     @Bind(R.id.textViewSignin) TextView textViewSignup;
-    @Bind(R.id.radioGender) RadioGroup radioGroup;
+    @Bind(R.id.radioGroup) RadioGroup radioGroup;
     private RadioButton radioButton;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
+    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +56,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
+        progressDialog = new ProgressDialog(this);
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 radioButton=(RadioButton)findViewById(checkedId);
+
             }
         });
         buttonRegister.setOnClickListener(new View.OnClickListener() {
@@ -72,27 +82,49 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser() {//register method
+        String name = textPersonName.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+        String passwordCompare = editTextPasswordCompare.getText().toString().trim();
+
+        if (TextUtils.isEmpty(name)) {
+            //email is empty
+            Toast.makeText(this, "Please enter name...", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(email)) {
+            //email is empty
+            Toast.makeText(this, "Please enter email...", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            //password is empty
+            Toast.makeText(this, "Please enter password...", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!password.equals(passwordCompare)) {
+            Toast.makeText(this, "Password not match...", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         if (!validate()) {
             Toast.makeText(getBaseContext(), "Sign up failed", Toast.LENGTH_LONG).show();
             return;
         }
         buttonRegister.setEnabled(false);
-        final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this,
-                R.style.AppTheme_Dark_Dialog);
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
-        String email = editTextEmail.getText().toString();
-        String password = editTextPassword.getText().toString();
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     //main activity here
+
                     String name=textPersonName.getText().toString();
                     String gender=radioButton.getText().toString();
                     String user_id=firebaseAuth.getCurrentUser().getUid();
-
-                    DatabaseReference current_user_db=firebaseDatabase.getReference().child("Users").child(user_id);
+                    DatabaseReference current_user_db = firebaseDatabase.getReference().child("Users").child(user_id);
                     current_user_db.child("Name").setValue(name);
                     current_user_db.child("Gender").setValue(gender);
                 } else {

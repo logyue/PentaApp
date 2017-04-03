@@ -7,17 +7,24 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+
+
 import com.google.firebase.auth.FirebaseAuth;
+
 
 import pentaapp.com.pentaapp.Fragments.SimpleFragmentPagerAdapter;
 import pentaapp.com.pentaapp.Registration.LoginActivity;
-import pentaapp.com.pentaapp.Registration.RegisterActivity;
+import pentaapp.com.pentaapp.view.CircleImageView;
+
 
 /**
  * Displays a {@link ViewPager} where each page shows a different day of the week.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     private FirebaseAuth firebaseAuth;
+
+
+    private CircleImageView userIcon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             tabLayout.getTabAt(i).setIcon(tabIcons[i]);
         }
-
         View view = this.getWindow().getDecorView();
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
     }
+
 }
