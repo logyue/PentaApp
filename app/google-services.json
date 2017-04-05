@@ -15,6 +15,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "314725638822-iri1o0e95kqlqq6oknlbsba3682kcpaa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pentaapp.com.pentaapp",
+            "certificate_hash": "87DFDA9C0D63BC1970BBAC3CECCC2E8CD92CAF39"
+          }
+        },
+        {
+          "client_id": "314725638822-o2u78uf1m0nd2e73e4efhbcs4r22p2q9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pentaapp.com.pentaapp",
+            "certificate_hash": "AB2B225FE409E973649BDF2520DAAF3ED16458E8"
+          }
+        },
+        {
+          "client_id": "314725638822-f3oouad8ais11vo8vcu2s7ggk4ho32bk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pentaapp.com.pentaapp",
+            "certificate_hash": "6D3C4E405E9B9975808C31FA0592E4D8629A8AD1"
+          }
+        },
+        {
           "client_id": "314725638822-v5trn42s6pj2uetq591bg1l1smaf9035.apps.googleusercontent.com",
           "client_type": 3
         }

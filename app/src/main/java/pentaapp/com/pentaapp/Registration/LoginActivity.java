@@ -17,16 +17,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import pentaapp.com.pentaapp.MainActivity;
 import pentaapp.com.pentaapp.R;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity{
 
-    private Button buttonSignIn;
-    private EditText editTextEmail;
-    private EditText editTextPassword;
-    private TextView textViewRegister;
-    private TextView textViewForgotPassword;
+    @Bind(R.id.buttonSignIn) Button buttonSignIn;
+    @Bind(R.id.editTextEmail) EditText editTextEmail;
+    @Bind(R.id.editTextPassword) EditText editTextPassword;
+    @Bind(R.id.textViewRegister) TextView textViewRegister;
+    @Bind(R.id.textViewForgotPassword) TextView textViewForgotPassword;
 
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
@@ -35,6 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
         firebaseAuth=FirebaseAuth.getInstance();
         authStateListener = new FirebaseAuth.AuthStateListener() {
@@ -50,27 +53,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progressDialog = new ProgressDialog(this);
 
 
-        editTextEmail = (EditText)findViewById(R.id.editTextEmail);
-        editTextPassword = (EditText)findViewById(R.id.editTextPassword);
-        textViewRegister = (TextView)findViewById(R.id.textViewRegister);
-        textViewForgotPassword=(TextView)findViewById(R.id.textViewForgotPassword);
-        buttonSignIn = (Button)findViewById(R.id.buttonSignIn);
-        buttonSignIn.setOnClickListener(this);
-        textViewRegister.setOnClickListener(this);
-        textViewForgotPassword.setOnClickListener(this);
+
+        buttonSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userLogin();
+            }
+        });
+        textViewRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
+            }
+        });
+        textViewForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ForgotPassword.class));
+            }
+        });
     }
 
     private void userLogin(){
         String email=editTextEmail.getText().toString().trim();
         String password=editTextPassword.getText().toString().trim();
-        if(TextUtils.isEmpty(email)){
+        if(email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             //email is empty
-            Toast.makeText(this,"Please enter email",Toast.LENGTH_SHORT).show();
+            editTextEmail.setError("enter a valid email address");
             return;
         }
-        if(TextUtils.isEmpty(password)){
+        if(password.isEmpty() || password.length() < 4 || password.length() > 10){
             //password is empty
-            Toast.makeText(this,"Please enter password",Toast.LENGTH_SHORT).show();
+            editTextPassword.setError("between 4 and 10 alphanumeric characters");
             return;
         }
         progressDialog.setMessage("Log In...");
@@ -85,7 +99,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     finish();
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 }else{
-                    Toast.makeText(LoginActivity.this,"Something wrong...",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"Login failed",Toast.LENGTH_SHORT).show();
                 }
                 //progressDialog.dismiss();
             }
@@ -95,18 +109,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
         firebaseAuth.addAuthStateListener(authStateListener);
-    }
-    @Override
-    public void onClick(View v) {
-        if(v == buttonSignIn){
-            userLogin();
-        }
-        if(v == textViewRegister){
-            //finish();
-            startActivity(new Intent(this,RegisterActivity.class));
-        }
-        if (v==textViewForgotPassword){
-            startActivity(new Intent(this,ForgotPassword.class));
-        }
     }
 }

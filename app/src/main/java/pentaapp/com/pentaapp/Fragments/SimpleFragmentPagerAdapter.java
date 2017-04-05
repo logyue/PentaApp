@@ -40,6 +40,7 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
     public SimpleFragmentPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
+
     }
 
     /**

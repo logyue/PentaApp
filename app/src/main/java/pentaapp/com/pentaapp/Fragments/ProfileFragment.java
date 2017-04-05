@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -30,32 +32,34 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
 
 
     private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference mDatabase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.profile_fragment, container, false);
 
         FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        mDatabase=FirebaseDatabase.getInstance().getReference();
         if(user!=null){
             firebaseDatabase=FirebaseDatabase.getInstance();
             firebaseAuth=FirebaseAuth.getInstance();
             textViewtEmail=(TextView) rootView.findViewById(R.id.textViewtEmail);
-            textViewtEmail.setText("Email: "+user.getEmail());
+            textViewtName=(TextView) rootView.findViewById(R.id.textViewName);
+            textViewtGender=(TextView) rootView.findViewById(R.id.textViewtGender);
 
 
-            firebaseDatabase.getReference().addListenerForSingleValueEvent(new ValueEventListener() {//Retrieve Data from Firebase(Name Gender)
+
+
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {//Retrieve Data from Firebase(Name Gender)
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    textViewtName=(TextView) rootView.findViewById(R.id.textViewtName);
-                    textViewtGender=(TextView) rootView.findViewById(R.id.textViewtGender);
-                    String name=(String)dataSnapshot.child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("Name").getValue();
-                    textViewtName.setText(name);
-                    String gender=(String)dataSnapshot.child("Users").child(firebaseAuth.getCurrentUser().getUid()).child("Gender").getValue();
-                    textViewtGender.setText(gender);
+                    String uid=firebaseAuth.getCurrentUser().getUid();
 
-                    textViewtEmail.setTextColor(getResources().getColor(R.color.textColor));
-                    textViewtName.setTextColor(getResources().getColor(R.color.textColor));
-                    textViewtGender.setTextColor(getResources().getColor(R.color.textColor));
+                    String name=(String)dataSnapshot.child("Users").child(uid).child("Name").getValue();
+                    textViewtName.setText(name);
+                    String gender=(String)dataSnapshot.child("Users").child(uid).child("Gender").getValue();
+                    textViewtGender.setText(gender);
+                    textViewtEmail.setText(firebaseAuth.getCurrentUser().getEmail());
                 }
 
                 @Override
