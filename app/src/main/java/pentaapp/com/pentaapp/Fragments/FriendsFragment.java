@@ -15,18 +15,25 @@
  */
 package pentaapp.com.pentaapp.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import pentaapp.com.pentaapp.EmptyActivity;
 import pentaapp.com.pentaapp.Friends.Friend;
+import pentaapp.com.pentaapp.Friends.FriendProfileActivity;
 import pentaapp.com.pentaapp.Friends.FriendsAdapter;
 import pentaapp.com.pentaapp.R;
+import pentaapp.com.pentaapp.Registration.LoginActivity;
+
+import static android.media.CamcorderProfile.get;
 
 public class FriendsFragment extends Fragment {
 
@@ -41,29 +48,19 @@ public class FriendsFragment extends Fragment {
         friends.add(new Friend("Jili Chen"));
         friends.add(new Friend("Jeffrey Ma"));
         friends.add(new Friend("Kevin Chie"));
-        friends.add(new Friend("Jili Chen"));
-        friends.add(new Friend("Jeffrey Ma"));
-        friends.add(new Friend("Kevin Chie"));
-        friends.add(new Friend("Jili Chen"));
-        friends.add(new Friend("Jeffrey Ma"));
-        friends.add(new Friend("Kevin Chie"));
-        friends.add(new Friend("Jili Chen"));
-        friends.add(new Friend("Jeffrey Ma"));
-        friends.add(new Friend("Kevin Chie"));
-        friends.add(new Friend("Jili Chen"));
-        friends.add(new Friend("Jeffrey Ma"));
-        friends.add(new Friend("Kevin Chie"));
-        friends.add(new Friend("Jili Chen"));
-        friends.add(new Friend("Jeffrey Ma"));
-        friends.add(new Friend("Kevin Chie"));
-
-
 
         FriendsAdapter adapter = new FriendsAdapter(getActivity(), friends);
 
         ListView listView = (ListView) rootView.findViewById(R.id.friends_list);
 
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
+                startActivity(new Intent(view.getContext(), FriendProfileActivity.class));
+            }
+        });
 
         return rootView;
     }

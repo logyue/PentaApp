@@ -54,5 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
         View view = this.getWindow().getDecorView();
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
+        viewPager.setCurrentItem(3);
     }
 }

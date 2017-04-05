@@ -19,12 +19,26 @@
         </activity>
         <activity android:name=".Registration.LoginActivity" />
         <activity android:name=".Registration.RegisterActivity" />
-        <activity android:name=".PentaApp" />
-        <activity android:name=".Registration.ForgotPassword"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <activity android:name=".Registration.ForgotPassword" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".Friends.FriendProfileActivity"
+            android:label="Friend"
+            android:parentActivityName=".MainActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pentaapp.com.pentaapp.Friends.FriendProfileActivity" />
+        </activity>
+        <activity android:name=".EmptyActivity"></activity>
     </application>
 
 </manifest>
