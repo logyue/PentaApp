@@ -20,15 +20,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import pentaapp.com.pentaapp.R;
 
 /**
  * Provides the appropriate {@link Fragment} for a view pager.
  */
 public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    /** Context of the app */
-    private Context mContext;
 
     /**
      * Create a new {@link SimpleFragmentPagerAdapter} object.
@@ -39,8 +36,6 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
      */
     public SimpleFragmentPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
-        mContext = context;
-
     }
 
     /**

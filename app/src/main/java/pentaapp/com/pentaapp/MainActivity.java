@@ -1,6 +1,7 @@
 package pentaapp.com.pentaapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -14,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 import pentaapp.com.pentaapp.Fragments.SimpleFragmentPagerAdapter;
+import pentaapp.com.pentaapp.Profile.User;
 import pentaapp.com.pentaapp.Registration.LoginActivity;
 import pentaapp.com.pentaapp.view.CircleImageView;
 
@@ -34,7 +36,6 @@ public class MainActivity extends AppCompatActivity{
         if(firebaseAuth.getCurrentUser()==null){
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
-
 
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
@@ -70,9 +71,6 @@ public class MainActivity extends AppCompatActivity{
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             tabLayout.getTabAt(i).setIcon(tabIcons[i]);
         }
-        View view = this.getWindow().getDecorView();
-        view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
-        
     }
 
 }

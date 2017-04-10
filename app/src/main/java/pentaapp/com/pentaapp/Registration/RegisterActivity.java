@@ -126,14 +126,14 @@ public class RegisterActivity extends AppCompatActivity {
                     String name=textPersonName.getText().toString();
                     String gender=radioButton.getText().toString();
                     String user_id=firebaseAuth.getCurrentUser().getUid();
-                    DatabaseReference current_user_db = firebaseDatabase.getReference().child("Users").child(user_id);
-                    current_user_db.child("Name").setValue(name);
-                    current_user_db.child("Gender").setValue(gender);
-                    current_user_db.child("Str").setValue("10.0f");
-                    current_user_db.child("StrE").setValue("10.0f");
-                    current_user_db.child("Stm").setValue("10.0f");
-                    current_user_db.child("Spd").setValue("10.0f");
-                    current_user_db.child("Flx").setValue("10.0f");
+                    DatabaseReference user_info = firebaseDatabase.getReference();
+                    user_info.child("Users").child(user_id).child("Name").setValue(name);
+                    user_info.child("Users").child(user_id).child("Gender").setValue(gender);
+                    user_info.child("Physical Stats").child(user_id).child("Str").setValue("10.0f");
+                    user_info.child("Physical Stats").child(user_id).child("StrE").setValue("10.0f");
+                    user_info.child("Physical Stats").child(user_id).child("Stm").setValue("10.0f");
+                    user_info.child("Physical Stats").child(user_id).child("Spd").setValue("10.0f");
+                    user_info.child("Physical Stats").child(user_id).child("Flx").setValue("10.0f");
                     firebaseAuth.signOut();
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 

@@ -53,12 +53,8 @@ import pentaapp.com.pentaapp.R;
 public class HomeFragment extends Fragment {
 
 
-    private FirebaseAuth firebaseAuth;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference mDatabase;
-    User user =new User();
-
-    float stats[]= user.getStats();
+    User user=new User();
+    float stats[]=user.getStats();
     float friendStats[] = {10.0f, 10.3f, 10.0f, 90.0f, 0.0f};
     String statNames[] = {"Str", "StrE", "Stm", "Spd", "Flx"};
     String nutriStats[] = {"Car", "Pro", "Wtr", "Min", "Fat"};
