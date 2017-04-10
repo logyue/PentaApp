@@ -12,6 +12,7 @@ import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
 
 
+
 import pentaapp.com.pentaapp.Fragments.SimpleFragmentPagerAdapter;
 import pentaapp.com.pentaapp.Registration.LoginActivity;
 import pentaapp.com.pentaapp.view.CircleImageView;
@@ -28,10 +29,12 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         firebaseAuth=FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser()==null){
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
+
 
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
@@ -69,6 +72,7 @@ public class MainActivity extends AppCompatActivity{
         }
         View view = this.getWindow().getDecorView();
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
+        
     }
 
 }

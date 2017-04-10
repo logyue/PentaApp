@@ -26,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Random;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -127,6 +129,14 @@ public class RegisterActivity extends AppCompatActivity {
                     DatabaseReference current_user_db = firebaseDatabase.getReference().child("Users").child(user_id);
                     current_user_db.child("Name").setValue(name);
                     current_user_db.child("Gender").setValue(gender);
+                    current_user_db.child("Str").setValue("10.0f");
+                    current_user_db.child("StrE").setValue("10.0f");
+                    current_user_db.child("Stm").setValue("10.0f");
+                    current_user_db.child("Spd").setValue("10.0f");
+                    current_user_db.child("Flx").setValue("10.0f");
+                    firebaseAuth.signOut();
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+
                 } else {
                     Toast.makeText(RegisterActivity.this, "Could not reigster. Please try again.", Toast.LENGTH_SHORT).show();
                 }

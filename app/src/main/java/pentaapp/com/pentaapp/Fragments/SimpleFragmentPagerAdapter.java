@@ -68,20 +68,5 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
         return 4;
     }
 
-    /**
-     * Return the name of each tab.
-     *
-    @Override
-    public CharSequence getPageTitle(int position) {
-        if (position == 0) {
-            return mContext.getString(R.string.home_page);
-        } else if (position == 1) {
-            return mContext.getString(R.string.friends_page);
-        } else if (position == 2) {
-            return mContext.getString(R.string.games_page);
-        } else {
-            return mContext.getString(R.string.profile_page);
-        }
-    }
-     */
+
 }

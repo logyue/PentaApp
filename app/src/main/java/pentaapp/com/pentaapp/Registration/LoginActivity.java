@@ -29,7 +29,6 @@ public class LoginActivity extends AppCompatActivity{
     @Bind(R.id.editTextPassword) EditText editTextPassword;
     @Bind(R.id.textViewRegister) TextView textViewRegister;
     @Bind(R.id.textViewForgotPassword) TextView textViewForgotPassword;
-
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -89,7 +88,6 @@ public class LoginActivity extends AppCompatActivity{
         }
         progressDialog.setMessage("Log In...");
         progressDialog.show();
-
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
