@@ -1,6 +1,7 @@
 package pentaapp.com.pentaapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -12,7 +13,9 @@ import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
 
 
+
 import pentaapp.com.pentaapp.Fragments.SimpleFragmentPagerAdapter;
+import pentaapp.com.pentaapp.Profile.User;
 import pentaapp.com.pentaapp.Registration.LoginActivity;
 import pentaapp.com.pentaapp.view.CircleImageView;
 
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         firebaseAuth=FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser()==null){
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
@@ -67,9 +71,12 @@ public class MainActivity extends AppCompatActivity{
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             tabLayout.getTabAt(i).setIcon(tabIcons[i]);
         }
+<<<<<<< HEAD
         View view = this.getWindow().getDecorView();
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         viewPager.setCurrentItem(3);
+=======
+>>>>>>> refs/remotes/origin/Jili
     }
 
 }

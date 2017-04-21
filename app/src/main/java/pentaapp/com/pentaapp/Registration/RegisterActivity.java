@@ -26,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Random;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -124,9 +126,17 @@ public class RegisterActivity extends AppCompatActivity {
                     String name=textPersonName.getText().toString();
                     String gender=radioButton.getText().toString();
                     String user_id=firebaseAuth.getCurrentUser().getUid();
-                    DatabaseReference current_user_db = firebaseDatabase.getReference().child("Users").child(user_id);
-                    current_user_db.child("Name").setValue(name);
-                    current_user_db.child("Gender").setValue(gender);
+                    DatabaseReference user_info = firebaseDatabase.getReference();
+                    user_info.child("Users").child(user_id).child("Name").setValue(name);
+                    user_info.child("Users").child(user_id).child("Gender").setValue(gender);
+                    user_info.child("Physical Stats").child(user_id).child("Str").setValue("10.0f");
+                    user_info.child("Physical Stats").child(user_id).child("StrE").setValue("10.0f");
+                    user_info.child("Physical Stats").child(user_id).child("Stm").setValue("10.0f");
+                    user_info.child("Physical Stats").child(user_id).child("Spd").setValue("10.0f");
+                    user_info.child("Physical Stats").child(user_id).child("Flx").setValue("10.0f");
+                    firebaseAuth.signOut();
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+
                 } else {
                     Toast.makeText(RegisterActivity.this, "Could not reigster. Please try again.", Toast.LENGTH_SHORT).show();
                 }

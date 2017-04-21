@@ -1,18 +1,19 @@
-/*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+//
+// * Copyright (C) 2016 The Android Open Source Project
+// *
+// * Licensed under the Apache License, Version 2.0 (the "License");
+// * you may not use this file except in compliance with the License.
+// * You may obtain a copy of the License at
+// *
+// *      http://www.apache.org/licenses/LICENSE-2.0
+// *
+// * Unless required by applicable law or agreed to in writing, software
+// * distributed under the License is distributed on an "AS IS" BASIS,
+// * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// * See the License for the specific language governing permissions and
+// * limitations under the License.
+//
+
 package pentaapp.com.pentaapp.Fragments;
 
 import android.os.Bundle;
@@ -30,6 +31,12 @@ import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,8 +51,10 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import pentaapp.com.pentaapp.Profile.User;
 import pentaapp.com.pentaapp.R;
 
+<<<<<<< HEAD:app/src/main/java/pentaapp/com/pentaapp/Fragments/AvatarFragment.java
 /**
  * Fragment that displays "Monday".
  */
@@ -88,13 +97,34 @@ public class AvatarFragment extends Fragment {
             }
         });
 
+=======
+
+
+//*
+// * Fragment that displays "Monday".
+
+
+public class HomeFragment extends Fragment {
+
+
+    User user=new User();
+    float stats[]=user.getStats();
+    float friendStats[] = {10.0f, 10.3f, 10.0f, 90.0f, 0.0f};
+    String statNames[] = {"Str", "StrE", "Stm", "Spd", "Flx"};
+    String nutriStats[] = {"Car", "Pro", "Wtr", "Min", "Fat"};
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.home_fragment, container, false);
+        //populate list with Data
+>>>>>>> refs/remotes/origin/Jili:app/src/main/java/pentaapp/com/pentaapp/Fragments/HomeFragment.java
         setUpRadarChart(rootView);
 
         return rootView;
     }
 
     private void setUpRadarChart(View rootView) {
-        //populate list with Data
+
         List<RadarEntry> entries = new ArrayList<RadarEntry>();
 
         for(int i=0; i<stats.length; i++){
@@ -115,7 +145,7 @@ public class AvatarFragment extends Fragment {
 
 
         RadarDataSet dataSet2 = new RadarDataSet(friendEntries, "Friend's Physical Stats");
-        dataSet2.setLineWidth(1f);
+        dataSet2.setLineWidth(1);
         dataSet2.setColor(Color.RED);
         dataSet2.setFillColor(Color.RED);
         dataSet2.setDrawFilled(true);
@@ -165,8 +195,13 @@ public class AvatarFragment extends Fragment {
         chart2.setDescription(desc);
 
         //Set value labels
+<<<<<<< HEAD:app/src/main/java/pentaapp/com/pentaapp/Fragments/AvatarFragment.java
         chart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(nutriNames));
         chart2.getXAxis().setTextColor(Color.BLACK);
+=======
+        chart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(nutriStats));
+        chart2.getXAxis().setTextColor(Color.WHITE);
+>>>>>>> refs/remotes/origin/Jili:app/src/main/java/pentaapp/com/pentaapp/Fragments/HomeFragment.java
         chart2.invalidate();
 
 
