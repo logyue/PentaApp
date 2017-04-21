@@ -22,38 +22,72 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.data.RadarData;
 import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import pentaapp.com.pentaapp.R;
 
-import static pentaapp.com.pentaapp.R.id.chart;
-
 /**
  * Fragment that displays "Monday".
  */
-public class HomeFragment extends Fragment {
+public class AvatarFragment extends Fragment {
 
-    float stats[] = {70.0f, 90.3f, 80.0f, 70.0f, 70.0f};
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
+    FirebaseUser user = mAuth.getCurrentUser();
+    String userID = user.getUid();
+    DatabaseReference mPhysicalStatsRef = mDatabase.child("Physical Stats").child(userID);
+
+    float stats[];
     float friendStats[] = {90.0f, 80.3f, 60.0f, 50.0f, 70.0f};
     String statNames[] = {"Str", "StrE", "Stm", "Spd", "Flx"};
+    String nutriNames[] = {"Pro", "Vit", "Wtr", "Crb", "Fat"};
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.home_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.avatar_fragment, container, false);
+
+        mPhysicalStatsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                float Str = Float.parseFloat(dataSnapshot.child("Str").toString());
+                float StrE = Float.parseFloat(dataSnapshot.child("StrE").toString());
+                float Stm = Float.parseFloat(dataSnapshot.child("Stm").toString());
+                float Spd = Float.parseFloat(dataSnapshot.child("Spd").toString());
+                float Flx = Float.parseFloat(dataSnapshot.child("Flx").toString());
+                stats = new float[]{Str, StrE, Stm, Spd, Flx};
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         setUpRadarChart(rootView);
 
         return rootView;
@@ -62,6 +96,7 @@ public class HomeFragment extends Fragment {
     private void setUpRadarChart(View rootView) {
         //populate list with Data
         List<RadarEntry> entries = new ArrayList<RadarEntry>();
+
         for(int i=0; i<stats.length; i++){
             entries.add(new RadarEntry(stats[i]));
         }
@@ -84,6 +119,7 @@ public class HomeFragment extends Fragment {
         dataSet2.setColor(Color.RED);
         dataSet2.setFillColor(Color.RED);
         dataSet2.setDrawFilled(true);
+
 
 
         List<IRadarDataSet> dataSets = new ArrayList<IRadarDataSet>();
@@ -109,7 +145,7 @@ public class HomeFragment extends Fragment {
         chart.animateXY(1000, 1000);
         chart.getLegend().setEnabled(false);
         chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(statNames));
-        chart.getXAxis().setTextColor(Color.WHITE);
+        chart.getXAxis().setTextColor(Color.BLACK);
 
         Description desc = new Description();
         desc.setText("");
@@ -126,12 +162,11 @@ public class HomeFragment extends Fragment {
         chart2.getYAxis().setAxisMinimum(0f);
         chart2.animateXY(1000,1000);
         chart2.getLegend().setEnabled(false);
-        chart.getXAxis().setTextColor(Color.WHITE);
         chart2.setDescription(desc);
 
         //Set value labels
-        chart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(statNames));
-        chart2.getXAxis().setTextColor(Color.WHITE);
+        chart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(nutriNames));
+        chart2.getXAxis().setTextColor(Color.BLACK);
         chart2.invalidate();
 
 
