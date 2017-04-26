@@ -44,7 +44,7 @@ public class FriendsFragment extends Fragment {
         //Create an array of words
         final ArrayList<Friend> friends = new ArrayList<Friend>();
 
-        //Add words
+        //Add wordsf
         friends.add(new Friend("Jili Chen"));
         friends.add(new Friend("Jeffrey Ma"));
         friends.add(new Friend("Kevin Chie"));

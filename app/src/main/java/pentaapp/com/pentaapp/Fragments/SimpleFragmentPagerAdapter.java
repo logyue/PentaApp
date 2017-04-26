@@ -20,10 +20,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> refs/remotes/origin/Jili
 /**
  * Provides the appropriate {@link Fragment} for a view pager.
  */

@@ -37,7 +37,7 @@ public class User {
     public User(){
         firebaseDatabase= FirebaseDatabase.getInstance();
         firebaseAuth= FirebaseAuth.getInstance();
-        getStats();
+        //getStats();
     }
     public User(String username, String gender) {
         this.username = username;
@@ -49,6 +49,7 @@ public class User {
         databaseReference.child("Users").child(userId).child("Gender").setValue(gender);
 
     }
+
     public float[] getStats(){
         String uid=firebaseAuth.getCurrentUser().getUid();
         databaseReference=firebaseDatabase.getReference().child("Physical Stats").child(uid);
