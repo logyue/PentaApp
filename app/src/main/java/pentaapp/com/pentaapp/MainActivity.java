@@ -71,6 +71,12 @@ public class MainActivity extends AppCompatActivity{
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             tabLayout.getTabAt(i).setIcon(tabIcons[i]);
         }
+<<<<<<< HEAD
+=======
+        View view = this.getWindow().getDecorView();
+        view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
+        viewPager.setCurrentItem(3);
+>>>>>>> Kevin
     }
 
 }
