@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/backgroundColor"
-    tools:context="pentaapp.com.pentaapp.MainActivity">
+    tools:context="pentaapp.com.pentaapp.Friends.FriendProfileActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -23,18 +23,18 @@
 
         <com.github.mikephil.charting.charts.RadarChart
             android:id="@+id/chart"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true" />
 
+
         <com.github.mikephil.charting.charts.RadarChart
             android:id="@+id/chart2"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
             android:layout_below="@+id/chart"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
