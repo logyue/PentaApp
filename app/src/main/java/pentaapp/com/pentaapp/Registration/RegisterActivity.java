@@ -129,13 +129,19 @@ public class RegisterActivity extends AppCompatActivity {
                     DatabaseReference user_info = firebaseDatabase.getReference();
                     user_info.child("Users").child(user_id).child("Name").setValue(name);
                     user_info.child("Users").child(user_id).child("Gender").setValue(gender);
-                    user_info.child("Physical Stats").child(user_id).child("Str").setValue("10.0f");
-                    user_info.child("Physical Stats").child(user_id).child("StrE").setValue("10.0f");
-                    user_info.child("Physical Stats").child(user_id).child("Stm").setValue("10.0f");
-                    user_info.child("Physical Stats").child(user_id).child("Spd").setValue("10.0f");
-                    user_info.child("Physical Stats").child(user_id).child("Flx").setValue("10.0f");
-                    firebaseAuth.signOut();
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    user_info.child("Physical Stats").child(user_id).child("Str").setValue("40.0f");
+                    user_info.child("Physical Stats").child(user_id).child("StrE").setValue("40.0f");
+                    user_info.child("Physical Stats").child(user_id).child("Stm").setValue("40.0f");
+                    user_info.child("Physical Stats").child(user_id).child("Spd").setValue("40.0f");
+                    user_info.child("Physical Stats").child(user_id).child("Flx").setValue("40.0f");
+
+                    user_info.child("Nutritional Stats").child(user_id).child("Pro").setValue("40.0f");
+                    user_info.child("Nutritional Stats").child(user_id).child("Vit").setValue("40.0f");
+                    user_info.child("Nutritional Stats").child(user_id).child("Wtr").setValue("40.0f");
+                    user_info.child("Nutritional Stats").child(user_id).child("Crb").setValue("40.0f");
+                    user_info.child("Nutritional Stats").child(user_id).child("Fat").setValue("40.0f");
+                    //firebaseAuth.signOut();
+                    //startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
                 } else {
                     Toast.makeText(RegisterActivity.this, "Could not reigster. Please try again.", Toast.LENGTH_SHORT).show();
