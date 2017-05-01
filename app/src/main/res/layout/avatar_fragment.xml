@@ -35,12 +35,8 @@
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/white"
-<<<<<<< HEAD
                 android:text="Kevin Chie"
                 android:id="@+id/textView2" />
-=======
-                android:id="@+id/textName" />
->>>>>>> Jili
 
             <TextView
                 android:layout_width="wrap_content"
@@ -58,12 +54,7 @@
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/white"
-<<<<<<< HEAD
                 android:text="21 yrs" />
-=======
-                android:id="@+id/textViewAge"
-               />
->>>>>>> Jili
 
             <TextView
                 android:layout_width="wrap_content"
@@ -72,12 +63,7 @@
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/white"
-<<<<<<< HEAD
                 android:text="70 kg" />
-=======
-                android:id="@+id/textViewWeight"
-                />
->>>>>>> Jili
 
             <TextView
                 android:layout_width="wrap_content"
@@ -85,14 +71,8 @@
                 android:layout_weight="1"
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/white"
-<<<<<<< HEAD
-=======
-                android:id="@+id/textViewHeight"
->>>>>>> Jili
-                android:text="170 cm" />
-
-
+                android:textColor="@color/white"/>
+            
         </LinearLayout>
 
     </LinearLayout>
