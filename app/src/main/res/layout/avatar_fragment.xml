@@ -35,8 +35,7 @@
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/white"
-                android:text="Kevin Chie"
-                android:id="@+id/textView2" />
+                android:id="@+id/textName" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -54,7 +53,8 @@
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/white"
-                android:text="21 yrs" />
+                android:id="@+id/textViewAge"
+               />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -63,7 +63,8 @@
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/white"
-                android:text="70 kg" />
+                android:id="@+id/textViewWeight"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -72,7 +73,8 @@
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/white"
-                android:text="170 cm" />
+                android:id="@+id/textViewHeight"
+                />
 
 
         </LinearLayout>
