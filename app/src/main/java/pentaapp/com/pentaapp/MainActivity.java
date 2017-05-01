@@ -73,10 +73,17 @@ public class MainActivity extends AppCompatActivity{
         }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         View view = this.getWindow().getDecorView();
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         viewPager.setCurrentItem(3);
+>>>>>>> Kevin
+=======
+        View view = this.getWindow().getDecorView();
+        view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
+        viewPager.setCurrentItem(3);
+
 >>>>>>> Kevin
 =======
         View view = this.getWindow().getDecorView();
