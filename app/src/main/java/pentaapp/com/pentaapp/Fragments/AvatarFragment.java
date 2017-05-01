@@ -56,13 +56,10 @@ import static pentaapp.com.pentaapp.R.id.chart2;
 public class AvatarFragment extends Fragment {
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
     FirebaseUser user = mAuth.getCurrentUser();
     String userID = user.getUid();
 
-    DatabaseReference mPhysicalStatsRef = mDatabase.child("Physical Stats").child(userID);
-    DatabaseReference mNutritionalStatsRef = mDatabase.child("Nutritional Stats").child(userID);
+
 
     private float[] physicalStats = new float[5];
     private float nutritionalStats[] = new float[5];
@@ -80,8 +77,41 @@ public class AvatarFragment extends Fragment {
 
     private void setUpRadarChart(View rootView) {
 
-        getPhysicalStats(physicalStats);
-        getNutritionalStats(nutritionalStats);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mPhysicalStatsRef = mDatabase.child("Physical Stats").child(userID);
+        DatabaseReference mNutritionalStatsRef = mDatabase.child("Nutritional Stats").child(userID);
+
+        mPhysicalStatsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                physicalStats[0]=Float.parseFloat(dataSnapshot.child("Str").getValue().toString());
+                physicalStats[1]=Float.parseFloat(dataSnapshot.child("StrE").getValue().toString());
+                physicalStats[2]=Float.parseFloat(dataSnapshot.child("Stm").getValue().toString());
+                physicalStats[3]=Float.parseFloat(dataSnapshot.child("Spd").getValue().toString());
+                physicalStats[4]=Float.parseFloat(dataSnapshot.child("Flx").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mNutritionalStatsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                nutritionalStats[0]=Float.parseFloat(dataSnapshot.child("Pro").getValue().toString());
+                nutritionalStats[1]=Float.parseFloat(dataSnapshot.child("Vit").getValue().toString());
+                nutritionalStats[2]=Float.parseFloat(dataSnapshot.child("Wtr").getValue().toString());
+                nutritionalStats[3]=Float.parseFloat(dataSnapshot.child("Crb").getValue().toString());
+                nutritionalStats[4]=Float.parseFloat(dataSnapshot.child("Fat").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         List<RadarEntry> physicalEntries = new ArrayList<RadarEntry>();
         for(int i=0; i<physicalStats.length; i++){
@@ -124,7 +154,7 @@ public class AvatarFragment extends Fragment {
         chart.getYAxis().setDrawLabels(false);
         chart.getYAxis().setAxisMinimum(0f);
         chart.getYAxis().setAxisMaximum(100f);
-        chart.animateXY(1000, 1000);
+        chart.animateXY(500, 500);
         chart.getLegend().setEnabled(false);
         chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(statNames));
         chart.getXAxis().setTextColor(Color.WHITE);
@@ -143,7 +173,7 @@ public class AvatarFragment extends Fragment {
         chart2.getYAxis().setDrawLabels(false);
         chart2.getYAxis().setAxisMinimum(0f);
         chart2.getYAxis().setAxisMaximum(100f);
-        chart2.animateXY(1000,1000);
+        chart2.animateXY(500,500);
         chart2.getLegend().setEnabled(false);
         chart2.setDescription(desc);
 
@@ -155,42 +185,4 @@ public class AvatarFragment extends Fragment {
 
     }
 
-    public void getPhysicalStats(final float[] physicalStats){
-
-
-        mPhysicalStatsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                physicalStats[0]=Float.parseFloat(dataSnapshot.child("Str").getValue().toString());
-                physicalStats[1]=Float.parseFloat(dataSnapshot.child("StrE").getValue().toString());
-                physicalStats[2]=Float.parseFloat(dataSnapshot.child("Stm").getValue().toString());
-                physicalStats[3]=Float.parseFloat(dataSnapshot.child("Spd").getValue().toString());
-                physicalStats[4]=Float.parseFloat(dataSnapshot.child("Flx").getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    public void getNutritionalStats(final float[] physicalStats){
-
-        mNutritionalStatsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                nutritionalStats[0]=Float.parseFloat(dataSnapshot.child("Pro").getValue().toString());
-                nutritionalStats[1]=Float.parseFloat(dataSnapshot.child("Vit").getValue().toString());
-                nutritionalStats[2]=Float.parseFloat(dataSnapshot.child("Wtr").getValue().toString());
-                nutritionalStats[3]=Float.parseFloat(dataSnapshot.child("Crb").getValue().toString());
-                nutritionalStats[4]=Float.parseFloat(dataSnapshot.child("Fat").getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 }

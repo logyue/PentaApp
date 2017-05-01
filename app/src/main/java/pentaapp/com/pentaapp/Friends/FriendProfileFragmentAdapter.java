@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+
 /**
  * Created by Kevin on 4/30/2017.
  */
@@ -30,20 +31,27 @@ public class FriendProfileFragmentAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         if (position == 0) {
             return new PhysicalStatsFragment();
-        } else
+        } else if (position == 1) {
+            return new FriendInfoFragment();
+        } else if (position == 2) {
             return new NutritionalStatsFragment();
+        } else
+            return new PhysicalStatsFragment();
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         if (position == 0) {
             return "Physical Stats";
-        } else
+        }
+        else if(position == 1)
+            return "Friend Info";
+        else
             return "Nutritional Stats";
     }
 }

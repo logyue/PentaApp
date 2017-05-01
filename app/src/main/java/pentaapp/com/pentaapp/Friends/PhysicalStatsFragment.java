@@ -47,6 +47,7 @@ public class PhysicalStatsFragment extends Fragment {
     String userID = user.getUid();
 
 
+
     private float[] physicalStats = new float[5];
     String statNames[] = {"Str", "StrE", "Stm", "Spd", "Flx"};
 
@@ -54,14 +55,10 @@ public class PhysicalStatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.physical_stats_fragment, container, false);
 
-        DatabaseReference databaseRefer;
-        FirebaseDatabase mFirebaseInstance;
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mPhysicalStatsRef = mDatabase.child("Physical Stats").child(userID);
 
-        mFirebaseInstance = FirebaseDatabase.getInstance();
-
-        databaseRefer = mFirebaseInstance.getReference("Physical Stats").child(userID);
-
-        databaseRefer.addValueEventListener(new ValueEventListener() {
+        mPhysicalStatsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 physicalStats[0]=Float.parseFloat(dataSnapshot.child("Str").getValue().toString());
@@ -108,7 +105,7 @@ public class PhysicalStatsFragment extends Fragment {
         chart.getYAxis().setDrawLabels(false);
         chart.getYAxis().setAxisMinimum(0f);
         chart.getYAxis().setAxisMaximum(100f);
-        chart.animateXY(1000, 1000);
+        chart.animateXY(500, 500);
         chart.getLegend().setEnabled(false);
         chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(statNames));
         chart.getXAxis().setTextColor(Color.WHITE);
