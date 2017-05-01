@@ -44,7 +44,7 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new HomeFragment();
+            return new AvatarFragment();
         } else if (position == 1){
             return new FriendsFragment();
         } else if (position == 2) {
@@ -52,7 +52,7 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter {
         } else if (position == 3){
             return new ProfileFragment();
         } else
-            return new HomeFragment();
+            return new AvatarFragment();
     }
 
     /**

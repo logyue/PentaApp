@@ -72,10 +72,17 @@ public class MainActivity extends AppCompatActivity{
             tabLayout.getTabAt(i).setIcon(tabIcons[i]);
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         View view = this.getWindow().getDecorView();
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         viewPager.setCurrentItem(3);
+>>>>>>> Kevin
+=======
+        View view = this.getWindow().getDecorView();
+        view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
+        viewPager.setCurrentItem(3);
+
 >>>>>>> Kevin
     }
 

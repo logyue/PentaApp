@@ -38,31 +38,44 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import com.google.firebase.auth.FirebaseUser;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
 import pentaapp.com.pentaapp.Profile.User;
 import pentaapp.com.pentaapp.R;
 
+import static android.R.attr.entries;
+import static pentaapp.com.pentaapp.R.id.chart2;
+
+/**
+ * Fragment that displays "Monday".
+ */
+public class AvatarFragment extends Fragment {
+
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
-//*
-// * Fragment that displays "Monday".
+    FirebaseUser user = mAuth.getCurrentUser();
+    String userID = user.getUid();
+    DatabaseReference mPhysicalStatsRef = mDatabase.child("Physical Stats").child(userID);
+    DatabaseReference mNutritionalStatsRef = mDatabase.child("Nutritional Stats").child(userID);
 
-
-public class HomeFragment extends Fragment {
-
-
-    User user=new User();
-    float stats[]=user.getStats();
-    float friendStats[] = {10.0f, 10.3f, 10.0f, 90.0f, 0.0f};
+    private float[] physicalStats = new float[5];
+    private float nutritionalStats[] = new float[5];
     String statNames[] = {"Str", "StrE", "Stm", "Spd", "Flx"};
-    String nutriStats[] = {"Car", "Pro", "Wtr", "Min", "Fat"};
+    String nutriNames[] = {"Pro", "Vit", "Wtr", "Crb", "Fat"};
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.home_fragment, container, false);
-        //populate list with Data
+        View rootView = inflater.inflate(R.layout.avatar_fragment, container, false);
+
         setUpRadarChart(rootView);
 
         return rootView;
@@ -70,29 +83,33 @@ public class HomeFragment extends Fragment {
 
     private void setUpRadarChart(View rootView) {
 
-        List<RadarEntry> entries = new ArrayList<RadarEntry>();
-        for(int i=0; i<stats.length; i++){
-            entries.add(new RadarEntry(stats[i]));
+        getPhysicalStats(physicalStats);
+        getNutritionalStats(nutritionalStats);
+
+        List<RadarEntry> physicalEntries = new ArrayList<RadarEntry>();
+        for(int i=0; i<physicalStats.length; i++){
+            physicalEntries.add(new RadarEntry(physicalStats[i]));
         }
 
-        List<RadarEntry> friendEntries = new ArrayList<RadarEntry>();
-        for(int i=0; i<friendStats.length; i++){
-            friendEntries.add(new RadarEntry(friendStats[i]));
+        List<RadarEntry> nutritionalEntries = new ArrayList<RadarEntry>();
+        for(int i=0; i<nutritionalStats.length; i++){
+            nutritionalEntries.add(new RadarEntry(nutritionalStats[i]));
         }
 
 
-        RadarDataSet dataSet = new RadarDataSet(entries, "My Physical Stats");
+        RadarDataSet dataSet = new RadarDataSet(physicalEntries, "My Physical Stats");
         dataSet.setLineWidth(1f);
         dataSet.setColor(Color.CYAN);
         dataSet.setFillColor(Color.CYAN);
         dataSet.setDrawFilled(true);
 
 
-        RadarDataSet dataSet2 = new RadarDataSet(friendEntries, "Friend's Physical Stats");
+        RadarDataSet dataSet2 = new RadarDataSet(nutritionalEntries, "Friend's Physical Stats");
         dataSet2.setLineWidth(1);
         dataSet2.setColor(Color.RED);
         dataSet2.setFillColor(Color.RED);
         dataSet2.setDrawFilled(true);
+
 
 
         List<IRadarDataSet> dataSets = new ArrayList<IRadarDataSet>();
@@ -115,6 +132,7 @@ public class HomeFragment extends Fragment {
         chart.setRotationEnabled(false);
         chart.getYAxis().setDrawLabels(false);
         chart.getYAxis().setAxisMinimum(0f);
+        chart.getYAxis().setAxisMaximum(100f);
         chart.animateXY(1000, 1000);
         chart.getLegend().setEnabled(false);
         chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(statNames));
@@ -133,16 +151,55 @@ public class HomeFragment extends Fragment {
         chart2.setRotationEnabled(false);
         chart2.getYAxis().setDrawLabels(false);
         chart2.getYAxis().setAxisMinimum(0f);
+        chart2.getYAxis().setAxisMaximum(100f);
         chart2.animateXY(1000,1000);
         chart2.getLegend().setEnabled(false);
-        chart.getXAxis().setTextColor(Color.WHITE);
         chart2.setDescription(desc);
 
         //Set value labels
-        chart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(nutriStats));
+        chart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(nutriNames));
         chart2.getXAxis().setTextColor(Color.WHITE);
         chart2.invalidate();
 
 
+    }
+
+    public void getPhysicalStats(final float[] physicalStats){
+
+
+        mPhysicalStatsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                physicalStats[0]=Float.parseFloat(dataSnapshot.child("Str").getValue().toString());
+                physicalStats[1]=Float.parseFloat(dataSnapshot.child("StrE").getValue().toString());
+                physicalStats[2]=Float.parseFloat(dataSnapshot.child("Stm").getValue().toString());
+                physicalStats[3]=Float.parseFloat(dataSnapshot.child("Spd").getValue().toString());
+                physicalStats[4]=Float.parseFloat(dataSnapshot.child("Flx").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getNutritionalStats(final float[] physicalStats){
+
+        mNutritionalStatsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                nutritionalStats[0]=Float.parseFloat(dataSnapshot.child("Pro").getValue().toString());
+                nutritionalStats[1]=Float.parseFloat(dataSnapshot.child("Vit").getValue().toString());
+                nutritionalStats[2]=Float.parseFloat(dataSnapshot.child("Wtr").getValue().toString());
+                nutritionalStats[3]=Float.parseFloat(dataSnapshot.child("Crb").getValue().toString());
+                nutritionalStats[4]=Float.parseFloat(dataSnapshot.child("Fat").getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
