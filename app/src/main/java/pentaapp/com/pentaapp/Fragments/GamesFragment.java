@@ -71,8 +71,6 @@ public class GamesFragment extends Fragment {
         sprint = (EditText) rootView.findViewById(R.id.textSprint);
         stretch = (EditText) rootView.findViewById(R.id.textStretch);
         btnAdd = (Button) rootView.findViewById(R.id.buttonAdd);
-        String userID = user.getUid();
-        mPs = mPs.child("Physical Stats").child(userID);
         firebaseDatabase = FirebaseDatabase.getInstance();
         if (user != null) {
 
@@ -98,11 +96,12 @@ public class GamesFragment extends Fragment {
                     mPs.addListenerForSingleValueEvent(new ValueEventListener() {//Retrieve Data from Firebase(Name Gender)
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            float str = Float.parseFloat(dataSnapshot.child("Str").getValue().toString());
-                            float strE = Float.parseFloat(dataSnapshot.child("StrE").getValue().toString());
-                            float stm = Float.parseFloat(dataSnapshot.child("Stm").getValue().toString());
-                            float spd = Float.parseFloat(dataSnapshot.child("Spd").getValue().toString());
-                            float flx = Float.parseFloat(dataSnapshot.child("Flx").getValue().toString());
+                            String userID = user.getUid();
+                            float str = Float.parseFloat(dataSnapshot.child("Physical Stats").child(userID).child("Str").getValue().toString());
+                            float strE = Float.parseFloat(dataSnapshot.child("Physical Stats").child(userID).child("StrE").getValue().toString());
+                            float stm = Float.parseFloat(dataSnapshot.child("Physical Stats").child(userID).child("Stm").getValue().toString());
+                            float spd = Float.parseFloat(dataSnapshot.child("Physical Stats").child(userID).child("Spd").getValue().toString());
+                            float flx = Float.parseFloat(dataSnapshot.child("Physical Stats").child(userID).child("Flx").getValue().toString());
                             str = str + Float.parseFloat(pushup.getText().toString());
                             strE = strE + Float.parseFloat(pullup.getText().toString());
                             stm = stm + Float.parseFloat(squat.getText().toString());

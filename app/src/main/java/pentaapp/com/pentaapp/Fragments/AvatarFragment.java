@@ -162,8 +162,8 @@ public class AvatarFragment extends Fragment {
         //chart.setBackgroundColor(getResources().getColor(R.color.BackgroundColor));
         chart.setRotationEnabled(false);
         chart.getYAxis().setDrawLabels(false);
-        chart.getYAxis().setAxisMinimum(0f);
-        chart.getYAxis().setAxisMaximum(100f);
+        chart.getYAxis().setAxisMinimum(0);
+        chart.getYAxis().setAxisMaximum(90);
         chart.animateXY(1000, 1000);
         chart.getLegend().setEnabled(false);
         chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(statNames));
@@ -181,8 +181,8 @@ public class AvatarFragment extends Fragment {
         //chart2.setBackgroundColor(getResources().getColor(R.color.chartBackgroundColor));
         chart2.setRotationEnabled(false);
         chart2.getYAxis().setDrawLabels(false);
-        chart2.getYAxis().setAxisMinimum(0f);
-        chart2.getYAxis().setAxisMaximum(100f);
+        chart2.getYAxis().setAxisMinimum(0);
+        chart2.getYAxis().setAxisMaximum(90);
         chart2.animateXY(1000,1000);
         chart2.getLegend().setEnabled(false);
         chart2.setDescription(desc);
