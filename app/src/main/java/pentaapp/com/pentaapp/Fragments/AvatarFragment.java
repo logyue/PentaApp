@@ -87,11 +87,11 @@ public class AvatarFragment extends Fragment {
             textViewAge=(TextView)rootView.findViewById(R.id.textViewAge) ;
             textViewWeight=(TextView)rootView.findViewById(R.id.textViewWeight) ;
             textViewHeight=(TextView)rootView.findViewById(R.id.textViewHeight) ;
-            mDatabase.addValueEventListener(new ValueEventListener() {
+            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     textViewName.setText((String)dataSnapshot.child("Users").child(userID).child("Name").getValue());
-                    String age=dataSnapshot.child("Users").child(userID).child("Age").getValue().toString()+" Years";
+                    String age="Age: "+dataSnapshot.child("Users").child(userID).child("Age").getValue().toString();
                     textViewAge.setText(age);
                     String weight=dataSnapshot.child("Users").child(userID).child("Weight").getValue().toString()+" LB";
                     textViewWeight.setText(weight);

@@ -35,7 +35,6 @@
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/white"
-                android:text="Kevin Chie"
                 android:id="@+id/textName" />
 
             <TextView

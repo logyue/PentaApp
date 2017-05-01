@@ -39,6 +39,9 @@ public class RegisterActivity extends AppCompatActivity {
     @Bind(R.id.textPersonName) EditText textPersonName;
     @Bind(R.id.textEmailAddress) EditText editTextEmail;
     @Bind(R.id.editTextPassword) EditText editTextPassword;
+    @Bind(R.id.editTextWeight) EditText textWeight;
+    @Bind(R.id.editTextHeight) EditText textHeight;
+    @Bind(R.id.editAge) EditText textAge;
     @Bind(R.id.editTextPasswordCompare) EditText editTextPasswordCompare;
     @Bind(R.id.buttonRegister) Button buttonRegister;
     @Bind(R.id.textViewSignin) TextView textViewSignup;
@@ -125,10 +128,16 @@ public class RegisterActivity extends AppCompatActivity {
 
                     String name=textPersonName.getText().toString();
                     String gender=radioButton.getText().toString();
+                    int age = Integer.parseInt(textAge.getText().toString());
+                    int weight = Integer.parseInt(textWeight.getText().toString());
+                    int height = Integer.parseInt(textHeight.getText().toString());
                     String user_id=firebaseAuth.getCurrentUser().getUid();
                     DatabaseReference user_info = firebaseDatabase.getReference();
                     user_info.child("Users").child(user_id).child("Name").setValue(name);
                     user_info.child("Users").child(user_id).child("Gender").setValue(gender);
+                    user_info.child("Users").child(user_id).child("Age").setValue(age);
+                    user_info.child("Users").child(user_id).child("Weight").setValue(weight);
+                    user_info.child("Users").child(user_id).child("Height").setValue(height);
                     user_info.child("Physical Stats").child(user_id).child("Str").setValue("40.0f");
                     user_info.child("Physical Stats").child(user_id).child("StrE").setValue("40.0f");
                     user_info.child("Physical Stats").child(user_id).child("Stm").setValue("40.0f");
