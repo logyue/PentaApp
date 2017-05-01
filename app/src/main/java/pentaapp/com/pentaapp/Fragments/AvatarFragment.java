@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.graphics.Color;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.Description;
@@ -44,11 +45,8 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-import pentaapp.com.pentaapp.Profile.User;
 import pentaapp.com.pentaapp.R;
 
-import static android.R.attr.entries;
-import static pentaapp.com.pentaapp.R.id.chart2;
 
 /**
  * Fragment that displays "Monday".
@@ -64,6 +62,15 @@ public class AvatarFragment extends Fragment {
     DatabaseReference mPhysicalStatsRef = mDatabase.child("Physical Stats").child(userID);
     DatabaseReference mNutritionalStatsRef = mDatabase.child("Nutritional Stats").child(userID);
 
+
+    private TextView textViewName;
+    private TextView textViewAge;
+    private TextView textViewWeight;
+    private TextView textViewHeight;
+
+
+
+
     private float[] physicalStats = new float[5];
     private float nutritionalStats[] = new float[5];
     String statNames[] = {"Str", "StrE", "Stm", "Spd", "Flx"};
@@ -75,6 +82,30 @@ public class AvatarFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.avatar_fragment, container, false);
+        if(user!=null) {
+            textViewName=(TextView)rootView.findViewById(R.id.textName) ;
+            textViewAge=(TextView)rootView.findViewById(R.id.textViewAge) ;
+            textViewWeight=(TextView)rootView.findViewById(R.id.textViewWeight) ;
+            textViewHeight=(TextView)rootView.findViewById(R.id.textViewHeight) ;
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    textViewName.setText((String)dataSnapshot.child("Users").child(userID).child("Name").getValue());
+                    String age=dataSnapshot.child("Users").child(userID).child("Age").getValue().toString()+" Years";
+                    textViewAge.setText(age);
+                    String weight=dataSnapshot.child("Users").child(userID).child("Weight").getValue().toString()+" LB";
+                    textViewWeight.setText(weight);
+                    String height=dataSnapshot.child("Users").child(userID).child("Height").getValue().toString()+" CM";
+                    textViewHeight.setText(height);
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
 
         setUpRadarChart(rootView);
 
@@ -167,7 +198,7 @@ public class AvatarFragment extends Fragment {
     public void getPhysicalStats(final float[] physicalStats){
 
 
-        mPhysicalStatsRef.addValueEventListener(new ValueEventListener() {
+        mPhysicalStatsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 physicalStats[0]=Float.parseFloat(dataSnapshot.child("Str").getValue().toString());
@@ -186,7 +217,7 @@ public class AvatarFragment extends Fragment {
 
     public void getNutritionalStats(final float[] physicalStats){
 
-        mNutritionalStatsRef.addValueEventListener(new ValueEventListener() {
+        mNutritionalStatsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 nutritionalStats[0]=Float.parseFloat(dataSnapshot.child("Pro").getValue().toString());
