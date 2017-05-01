@@ -35,6 +35,7 @@
                 android:layout_marginTop="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/white"
+                android:text="Kevin Chie"
                 android:id="@+id/textName" />
 
             <TextView
@@ -74,7 +75,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/white"
                 android:id="@+id/textViewHeight"
-                />
+                android:text="170 cm" />
 
 
         </LinearLayout>
