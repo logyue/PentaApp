@@ -1,20 +1,4 @@
-//
-// * Copyright (C) 2016 The Android Open Source Project
-// *
-// * Licensed under the Apache License, Version 2.0 (the "License");
-// * you may not use this file except in compliance with the License.
-// * You may obtain a copy of the License at
-// *
-// *      http://www.apache.org/licenses/LICENSE-2.0
-// *
-// * Unless required by applicable law or agreed to in writing, software
-// * distributed under the License is distributed on an "AS IS" BASIS,
-// * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// * See the License for the specific language governing permissions and
-// * limitations under the License.
-//
-
-package pentaapp.com.pentaapp.Fragments;
+package pentaapp.com.pentaapp.Friends;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -44,34 +28,32 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-import pentaapp.com.pentaapp.Profile.User;
 import pentaapp.com.pentaapp.R;
 
-import static android.R.attr.entries;
-import static pentaapp.com.pentaapp.R.id.chart2;
+
 
 /**
- * Fragment that displays "Monday".
+ * Created by Kevin on 4/30/2017.
  */
-public class AvatarFragment extends Fragment {
+
+public class NutritionalStatsFragment extends Fragment {
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
+
     FirebaseUser user = mAuth.getCurrentUser();
     String userID = user.getUid();
 
-    DatabaseReference mPhysicalStatsRef = mDatabase.child("Physical Stats").child(userID);
     DatabaseReference mNutritionalStatsRef = mDatabase.child("Nutritional Stats").child(userID);
 
-    private float[] physicalStats = new float[5];
     private float nutritionalStats[] = new float[5];
-    String statNames[] = {"Str", "StrE", "Stm", "Spd", "Flx"};
     String nutriNames[] = {"Pro", "Vit", "Wtr", "Crb", "Fat"};
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.avatar_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.nutritional_stats_fragment, container, false);
 
         setUpRadarChart(rootView);
 
@@ -80,62 +62,44 @@ public class AvatarFragment extends Fragment {
 
     private void setUpRadarChart(View rootView) {
 
-        getPhysicalStats(physicalStats);
-        getNutritionalStats(nutritionalStats);
+        mNutritionalStatsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                nutritionalStats[0]=Float.parseFloat(dataSnapshot.child("Pro").getValue().toString());
+                nutritionalStats[1]=Float.parseFloat(dataSnapshot.child("Vit").getValue().toString());
+                nutritionalStats[2]=Float.parseFloat(dataSnapshot.child("Wtr").getValue().toString());
+                nutritionalStats[3]=Float.parseFloat(dataSnapshot.child("Crb").getValue().toString());
+                nutritionalStats[4]=Float.parseFloat(dataSnapshot.child("Fat").getValue().toString());
+            }
 
-        List<RadarEntry> physicalEntries = new ArrayList<RadarEntry>();
-        for(int i=0; i<physicalStats.length; i++){
-            physicalEntries.add(new RadarEntry(physicalStats[i]));
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         List<RadarEntry> nutritionalEntries = new ArrayList<RadarEntry>();
         for(int i=0; i<nutritionalStats.length; i++){
             nutritionalEntries.add(new RadarEntry(nutritionalStats[i]));
         }
 
-        RadarDataSet dataSet = new RadarDataSet(physicalEntries, "My Physical Stats");
-        dataSet.setLineWidth(1f);
-        dataSet.setColor(Color.CYAN);
-        dataSet.setFillColor(Color.CYAN);
-        dataSet.setDrawFilled(true);
 
         RadarDataSet dataSet2 = new RadarDataSet(nutritionalEntries, "Friend's Physical Stats");
-        dataSet2.setLineWidth(1f);
-        dataSet2.setColor(Color.RED);
-        dataSet2.setFillColor(Color.RED);
+        dataSet2.setLineWidth(1);
+        dataSet2.setColor(Color.CYAN);
+        dataSet2.setFillColor(Color.CYAN);
         dataSet2.setDrawFilled(true);
 
 
 
         List<IRadarDataSet> dataSets = new ArrayList<IRadarDataSet>();
-        dataSets.add(dataSet);
         dataSets.add(dataSet2);
 
-        RadarData data = new RadarData(dataSet);
 
         RadarData data2 = new RadarData(dataSet2);
 
         //Get the chart
-        RadarChart chart = (RadarChart) rootView.findViewById(R.id.chart);
-
-        chart.setData(data);
-        //chart.setBackgroundColor(getResources().getColor(R.color.BackgroundColor));
-        chart.setRotationEnabled(false);
-        chart.getYAxis().setDrawLabels(false);
-        chart.getYAxis().setAxisMinimum(0f);
-        chart.getYAxis().setAxisMaximum(100f);
-        chart.animateXY(1000, 1000);
-        chart.getLegend().setEnabled(false);
-        chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(statNames));
-        chart.getXAxis().setTextColor(Color.WHITE);
-
-        Description desc = new Description();
-        desc.setText("");
-        chart.setDescription(desc);
-        chart.invalidate();
-
-        //Get the chart
-        RadarChart chart2 = (RadarChart) rootView.findViewById(R.id.chart2);
+        RadarChart chart2 = (RadarChart) rootView.findViewById(R.id.friends_nutritional_stats_comparison_chart);
 
         chart2.setData(data2);
         //chart2.setBackgroundColor(getResources().getColor(R.color.chartBackgroundColor));
@@ -145,35 +109,17 @@ public class AvatarFragment extends Fragment {
         chart2.getYAxis().setAxisMaximum(100f);
         chart2.animateXY(1000,1000);
         chart2.getLegend().setEnabled(false);
+
+        Description desc = new Description();
+        desc.setText("");
         chart2.setDescription(desc);
 
         //Set value labels
         chart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(nutriNames));
         chart2.getXAxis().setTextColor(Color.WHITE);
         chart2.invalidate();
-
-
     }
 
-    public void getPhysicalStats(final float[] physicalStats){
-
-
-        mPhysicalStatsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                physicalStats[0]=Float.parseFloat(dataSnapshot.child("Str").getValue().toString());
-                physicalStats[1]=Float.parseFloat(dataSnapshot.child("StrE").getValue().toString());
-                physicalStats[2]=Float.parseFloat(dataSnapshot.child("Stm").getValue().toString());
-                physicalStats[3]=Float.parseFloat(dataSnapshot.child("Spd").getValue().toString());
-                physicalStats[4]=Float.parseFloat(dataSnapshot.child("Flx").getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     public void getNutritionalStats(final float[] physicalStats){
 

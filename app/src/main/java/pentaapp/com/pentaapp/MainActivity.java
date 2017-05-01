@@ -17,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import pentaapp.com.pentaapp.Fragments.SimpleFragmentPagerAdapter;
 import pentaapp.com.pentaapp.Profile.User;
 import pentaapp.com.pentaapp.Registration.LoginActivity;
-import pentaapp.com.pentaapp.view.CircleImageView;
 
 
 /**
@@ -26,8 +25,6 @@ import pentaapp.com.pentaapp.view.CircleImageView;
 public class MainActivity extends AppCompatActivity{
     private FirebaseAuth firebaseAuth;
 
-
-    private CircleImageView userIcon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
