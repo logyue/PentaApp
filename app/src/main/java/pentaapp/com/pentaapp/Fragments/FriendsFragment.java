@@ -86,10 +86,6 @@ public class FriendsFragment extends Fragment {
                         friends.add(new Friend(username, userID));
                     }
 
-
-
-
-
                     // we loaded a child, check if we're done
                     pendingCount[0] = pendingCount[0] - 1;
                     if (pendingCount[0] == 0) {
@@ -117,10 +113,10 @@ public class FriendsFragment extends Fragment {
                 Friend friend = friends.get(position);
                 String friendID = friend.getFriendID();
 
-//                Intent friendProfile = new Intent(getActivity(), FriendProfileActivity.class);
-//                friendProfile.putExtra("FRIEND_ID", friendID);
-//                startActivity(friendProfile);
-                startActivity(new Intent(getActivity(), FriendProfileActivity.class));
+                Intent friendProfile = new Intent(getActivity(), FriendProfileActivity.class);
+                friendProfile.putExtra("FRIEND_ID", friendID);
+                startActivity(friendProfile);
+                //startActivity(new Intent(getActivity(), FriendProfileActivity.class));
 
             }
         });

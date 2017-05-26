@@ -60,6 +60,7 @@ public class FriendProfileActivity extends AppCompatActivity {
         //      by calling onPageTitle()
         tabLayout.setupWithViewPager(viewPager);
 
+
         View view = this.getWindow().getDecorView();
         view.setBackgroundColor(getResources().getColor(R.color.backgroundColor));
         viewPager.setCurrentItem(0);
